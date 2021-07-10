@@ -5,11 +5,19 @@ const { Category, Product } = require('../../models');
 
 router.get('/', (req, res) => {
   // find all categories
+  const findAllCategories = await Category.findAll(
+    {include: [{ model: Product}]}
+  )
+  return res.json(findAllCategories)
   // be sure to include its associated Products
 });
 
 router.get('/:id', (req, res) => {
   // find one category by its `id` value
+  const singleCategory = await Category.findByPk(req.params.id, {
+    include: [{ model: Product}]
+  })
+  res.json(singleCategory)
   // be sure to include its associated Products
 });
 
