@@ -12,6 +12,16 @@ router.get('/', (req, res) => {
 // get one product
 router.get('/:id', (req, res) => {
   // find a single product by its `id`
+  try {
+    const tagData = await ProductTag.findByPk(req.params.id);
+    if (!tagData) {
+      res.status(404).json({ Message: 'No product under this id'});
+      return;
+    }
+    res.status(200).json(tagData);
+  } catch (err) {
+    res.status(500).json(err)
+  }
   // be sure to include its associated Category and Tag data
 });
 
