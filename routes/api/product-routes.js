@@ -13,7 +13,7 @@ router.get('/', (req, res) => {
 router.get('/:id', (req, res) => {
   // find a single product by its `id`
   try {
-    const tagData = await ProductTag.findByPk(req.params.id);
+    const productData = await Product.findByPk(req.params.id);
     if (!tagData) {
       res.status(404).json({ Message: 'No product under this id'});
       return;
