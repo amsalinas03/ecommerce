@@ -7,6 +7,7 @@ const { Product, Category, Tag, ProductTag } = require('../../models');
 router.get('/', async (req, res) => {
   // find all products
   const findAllProducts = await Product.findAll()
+  return res.json(findAllProducts)
   // be sure to include its associated Category and Tag data
 });
 
@@ -14,12 +15,12 @@ router.get('/', async (req, res) => {
 router.get('/:id', async (req, res) => {
   // find a single product by its `id`
   try {
-    let productData = await Product.findByPk(req.params.id);
-    if (!tagData) {
+    let singleProduct = await Product.findByPk(req.params.id);
+    if (!singleProduct) {
       res.status(404).json({ Message: 'No product under this id'});
       return;
     }
-    res.status(200).json(tagData);
+    res.status(200).json(singleProduct);
   } catch (err) {
     res.status(500).json(err)
   }
